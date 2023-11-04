@@ -3,7 +3,13 @@ import OrderDetails from "./components/OrderDetails";
 import AddItemsPanel from "./components/AddItemsPanel";
 import "./App.css";
 
-const menuItems = [
+interface MenuItem {
+  name: string;
+  price: number;
+  image?: string;
+}
+
+const menuItems: MenuItem[] = [
   { name: "Hamburger", price: 80 },
   { name: "CheeseBurger", price: 90 },
   { name: "Fries", price: 45 },
@@ -36,9 +42,13 @@ const App: React.FC = () => {
     setOrder((prevOrder) => prevOrder.filter((item) => item.name !== name));
   };
 
+  const calculateTotalPrice = () => {
+    return order.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
   return (
     <div className="app">
-      <OrderDetails order={order} onRemove={removeItemFromOrder} />
+      <OrderDetails order={order} onRemove={removeItemFromOrder} totalPrice={calculateTotalPrice()} />
       <AddItemsPanel items={menuItems} onAdd={addItemToOrder} />
     </div>
   );

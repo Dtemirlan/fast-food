@@ -10,7 +10,7 @@ interface OrderItem {
 }
 
 interface OrderDetailsProps {
-  order: OrderItem[];
+  order: { name: string; quantity: number; price: number }[];
   onRemove: (name: string) => void;
   totalPrice: number;
 }
